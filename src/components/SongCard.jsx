@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PlayPause from './PlayPause';
 import { setActiveSong, playPause } from '../redux/features/playerSlice';
+import nocoverart from '../assets/NoCoverArt.png2.png';
 
 const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
-
   const dispatch = useDispatch();
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -13,7 +13,6 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
   };
-  console.log(`title:${song.title}`);
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
@@ -26,7 +25,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             handlePlay={handlePlayClick}
           />
         </div>
-        <img src={song.images?.coverart ? song.images.coverart : song.images.background} alt="song_img" />
+        <img src={song.images?.coverart ? song.images.coverart : nocoverart} alt="song_img" />
       </div>
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
@@ -35,7 +34,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
           </Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-          <Link to={song.artist ? `/artists/${song?.artist[0]?.adamid}` : '/top-artist'}>
+          <Link to={song.artist ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'}>
             {song.subtitle}
           </Link>
         </p>

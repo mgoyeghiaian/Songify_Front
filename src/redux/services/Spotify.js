@@ -15,11 +15,15 @@ export const SpotifyApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getTopCharts: (builder.query({
+    getTopCharts: builder.query({
       query: () => '/charts/track',
-    })),
+    }),
+    getSongDetails: builder.query({
+      query: ({ songid }) => `/songs/get-details?key=${songid}`,
+    }),
   }),
 });
 export const {
   useGetTopChartsQuery,
+  useGetSongDetailsQuery,
 } = SpotifyApi;
