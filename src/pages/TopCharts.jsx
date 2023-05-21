@@ -1,3 +1,31 @@
-const TopCharts = () => <div>TopCharts</div>;
+import { useSelector } from 'react-redux';
+import { Error, Loader, SongCard } from '../components';
+import { useGetTopChartsQuery } from '../redux/services/Spotify';
 
-export default TopCharts;
+const TopChatrs = () => {
+  const { activeSong, isPlaying } = useSelector((state) => state.player);
+
+  const { data, isFetching, error } = useGetTopChartsQuery();
+  const CountryData = data?.tracks;
+  if (isFetching) return <Loader title="Loading Top Charts" />;
+  if (error) return <Error />;
+
+  return (
+    <div className="flex flex-col">
+      <h2 className="font-bold text-3xl text-white text-left mt04 mb-10">Top Charts</h2>
+      <div className="flex flex-wrap sm:justify-center justify-center gap-8">
+        {CountryData?.map((song, i) => (
+          <SongCard
+            key={song.key}
+            song={song}
+            isPlaying={isPlaying}
+            activeSong={activeSong}
+            data={CountryData}
+            i={i}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+export default TopChatrs;

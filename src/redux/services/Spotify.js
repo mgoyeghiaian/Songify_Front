@@ -4,31 +4,71 @@ export const SpotifyApi = createApi({
   reducerPath: 'SpotifyApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shazam.p.rapidapi.com',
-
-    // prepareParams: (params) = {
-    //   params.set("ids", '4WNcduiCmDNfmTEz7JvmLv');
-    //   return params;
-    // },
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', 'd6324640d1msh378a1ba9cd425e3p1f4fe4jsna8c3ffc48600');
+      headers.set('X-RapidAPI-Key', 'bd7d322739mshf24a1b14cb6b67ap173692jsnd222054ae47f');
       return headers;
     },
   }),
   endpoints: (builder) => ({
+
     getTopCharts: builder.query({
-      query: () => '/charts/track'
-      ,
+      query: (selectedGenre) => ({
+        url: '/charts/track',
+        params: {
+          pageSize: '20',
+          startFrom: '0',
+          listId: selectedGenre,
+
+        },
+      }),
     }),
     getSongDetails: builder.query({
-      query: ({ songid }) => `/songs/get-details?key=${songid}`,
+      query: ({ songid }) => ({
+        url: '/songs/get-details',
+        params: {
+          key: songid,
+        },
+      }),
     }),
     getRelatedSongs: builder.query({
-      query: ({ songid }) => `/list-similarities?id=track-similarities-id-${songid}`,
+      query: ({ songid }) => ({
+        url: '/shazam-songs/list-similarities',
+        params: {
+          id: `track-similarities-id-${songid}`,
+        },
+      }),
+    }),
+    getArtistDetails: builder.query({
+      query: (artiatId) => ({
+        url: '/artists/get-summary',
+        params: {
+          id: `${artiatId}`,
+        },
+      }),
+    }),
+    getSongsByCountry: builder.query({
+      query: (countryCode) => ({
+        url: '/charts/track',
+        params: {
+          listId: `ip-country-chart-${countryCode}`,
+        },
+      }),
+    }),
+
+    getsongsGenre: builder.query({
+      query: () => ({
+        url: '/charts/list',
+      }),
     }),
   }),
+
 });
+
 export const {
+  useGetsongsGenreQuery,
   useGetTopChartsQuery,
   useGetSongDetailsQuery,
+  useGetArtistDetailsQuery,
+  useGetSongsByCountryQuery,
   useGetRelatedSongsQuery,
 } = SpotifyApi;

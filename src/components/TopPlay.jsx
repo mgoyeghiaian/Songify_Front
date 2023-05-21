@@ -11,8 +11,8 @@ import 'swiper/css/free-mode';
 import nocoverart from '../assets/NoCoverArt.png2.png';
 
 const TopChartCard = ({ song, i, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => (
-  <div className="w-full flex flex-row items-center hover:bg-[#4c426e] py-2 p-4 rounded-lg cursor-pointer mb-2">
-    <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
+  <div className={`w-full flex flex-row items-center hover:bg-[#505052] ${activeSong?.title === song?.title ? 'bg-[#44434a]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
+    <h3 h3 className="font-bold text-base text-white mr-3"> {i + 1}.</h3>
     <div className="flex-1 flex flex-row justify-between items-center">
       <img className="w-20 h-20 rounded-lg " src={song?.images?.coverart || nocoverart} alt={song?.title} />
       <div className="flex-1 flex flex-col justify-center mx-3">
@@ -76,9 +76,10 @@ const TopPlay = () => {
         ))}
         </div>
       </div>
-      <div className="w-full flex flex-col mt-8">
+      <div className="w-full flex flex-col mt-3 ">
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-white font-bold text-2xl">Top Artist</h2>
+          <h2 className="text-white font-bold text-2xl">Popular artists
+          </h2>
           <Link to="/top-artist">
             <p className="text-gray-300 text-base cursor-pointer">See More</p>
           </Link>
@@ -90,22 +91,23 @@ const TopPlay = () => {
           centeredSlides
           centeredSlidesBounds
           modules={[FreeMode]}
-          className="mt-4"
+          className="mt-3"
         >
           {topPlays?.map((song, i) => (
             <SwiperSlide
               key={song?.key}
               style={{ width: '25%', height: 'auto' }}
-              className="shadow-lg rounded-full animate-slideright "
+              className="shadow-lg animate-slideright bg-gray-800 rounded-lg h-56 w-full hover:opacity-50"
             >
               <Link to={`/artists/${song?.artists[0]?.adamid}`}>
-                <img src={song?.images.background} alt="name" className="rounded-full w-full object-cover" />
+                <img src={song?.images.background} alt="name" className="rounded-full w-full object-cover p-3 " />
+                <p className="text-white font-bold text-[18px] text-center mb-2">{song?.artists[0]?.alias}</p>
               </Link>
+
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-
     </div>
   );
 };

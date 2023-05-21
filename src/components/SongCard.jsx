@@ -13,6 +13,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
   };
+  console.log('test For Artist', song);
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
@@ -34,7 +35,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
           </Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-          <Link to={song.artist ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'}>
+          <Link to={song.artists ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'}>
             {song.subtitle}
           </Link>
         </p>
