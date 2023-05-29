@@ -13,7 +13,7 @@ const TopArtists = () => {
       <div className="flex flex-wrap sm:justify-center justify-center gap-8">
         {CountryData?.map((track) => (
           <ArtistCard
-            key={track.key}
+            key={track.adamid}
             track={track}
           />
         ))}

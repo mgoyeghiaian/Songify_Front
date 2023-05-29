@@ -5,7 +5,7 @@ export const SpotifyApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shazam.p.rapidapi.com',
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', 'bd7d322739mshf24a1b14cb6b67ap173692jsnd222054ae47f');
+      headers.set('X-RapidAPI-Key', '8a3854969fmsh6c4ef08eb65c454p1d6023jsn384f7a6335d5');
       return headers;
     },
   }),
@@ -30,6 +30,15 @@ export const SpotifyApi = createApi({
         },
       }),
     }),
+
+    getSongADetails: builder.query({
+      query: ({ songid }) => ({
+        url: '/songs/v2/get-details',
+        params: {
+          id: songid,
+        },
+      }),
+    }),
     getRelatedSongs: builder.query({
       query: ({ songid }) => ({
         url: '/shazam-songs/list-similarities',
@@ -46,6 +55,16 @@ export const SpotifyApi = createApi({
         },
       }),
     }),
+
+    getSearchDetails: builder.query({
+      query: (searchTerm) => ({
+        url: '/search',
+        params: {
+          term: `${searchTerm}`,
+        },
+      }),
+    }),
+
     getSongsByCountry: builder.query({
       query: (countryCode) => ({
         url: '/charts/track',
@@ -68,6 +87,8 @@ export const {
   useGetsongsGenreQuery,
   useGetTopChartsQuery,
   useGetSongDetailsQuery,
+  useGetSongADetailsQuery,
+  useGetSearchDetailsQuery,
   useGetArtistDetailsQuery,
   useGetSongsByCountryQuery,
   useGetRelatedSongsQuery,

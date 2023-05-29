@@ -9,6 +9,8 @@ import RelatedSongs from './RelatedSongs';
 import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
+import ArtistSearchCard from './ArtistSearchCard';
+import PlayPause2 from './PlayPause2';
 
 export {
   TopPlay,
@@ -22,4 +24,6 @@ export {
   MusicPlayer,
   Loader,
   Error,
+  PlayPause2,
+  ArtistSearchCard,
 };

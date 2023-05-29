@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 
 const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
   const ref = useRef(null);
+  console.log('Activvve', activeSong);
   // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
     if (isPlaying) {
@@ -25,6 +26,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
       src={
         activeSong?.hub?.actions[1]?.uri
         || activeSong?.streaming?.preview
+        || activeSong?.previews[0]?.url
       }
       ref={ref}
       loop={repeat}

@@ -1,23 +1,114 @@
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+
 import PlayPause from './PlayPause';
 import { setActiveSong, playPause } from '../redux/features/playerSlice';
 import nocoverart from '../assets/NoCoverArt.png2.png';
 
 const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const dispatch = useDispatch();
+  const token = Cookies.get('token');
+  const [likedSongs, setLikedSongs] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    fetchLikedSongs();
+  }, []);
+
+  const fetchLikedSongs = () => {
+    axios
+      .get('http://localhost:3030/liked-songs', {
+        headers: {
+          authorization: `${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        const likedSongsData = response.data;
+        setLikedSongs(likedSongsData);
+        setIsLiked(likedSongsData.some((likedSong) => likedSong.key === song.key));
+      })
+      .catch((error) => {
+        console.error('Error fetching liked songs:', error);
+      });
+  };
+
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
+
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
   };
-  console.log('test For Artist', song);
+
+  const handleHeartClick = () => {
+    if (!token) {
+      setShowPopup(true);
+    } else if (isLiked) {
+      axios
+        .delete(`http://localhost:3030/delete-song/${song.key}`, {
+          headers: {
+            authorization: `${token}`,
+          },
+        })
+        .then((response) => {
+          console.log('Song removed from liked songs:', response.data);
+          setIsLiked(false);
+        })
+        .catch((error) => {
+          console.error('Error removing song from liked songs:', error);
+        });
+    } else {
+      axios
+        .post(
+          'http://localhost:3030/save-song',
+          { songData: song },
+          {
+            headers: {
+              authorization: `${token}`,
+            },
+          },
+        )
+        .then((response) => {
+          console.log('Song added to liked songs:', response.data);
+          setIsLiked(true);
+        })
+        .catch((error) => {
+          console.error('Error adding song to liked songs:', error);
+        });
+    }
+  };
+
   return (
-    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
+    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer relative">
+      {showPopup && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+          <div className="bg-black p-4 rounded-lg text-center mb-12">
+            <p className="text-white mb-2">To like the song, you must</p>
+            <Link to="/login" className="text-blue-400 font-semibold hover:text-blue-300">
+              Login
+            </Link>
+            <p className="text-white mb-2">or</p>
+            <button
+              className="text-blue-400 font-semibold hover:text-blue-300"
+              onClick={() => setShowPopup(false)}
+              type="button"
+            >
+              Continue without Login
+            </button>
+          </div>
+        </div>
+      )}
       <div className="relative w-full h-56 group">
-        <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.title === song.title ? 'flex bg-opacity-70 bg-black-500' : 'hidden'}  `}>
+        <div
+          className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.title === song.title ? 'flex bg-opacity-70 bg-black-500' : 'hidden'}`}
+        >
           <PlayPause
             song={song}
             isPlaying={isPlaying}
@@ -30,15 +121,31 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       </div>
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
-          <Link to={`/songs/${song?.key}`}>
+          <Link to={`/songs/${song?.key}`} className="no-underline">
             {song.title}
           </Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-          <Link to={song.artists ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'}>
+          <Link to={song.artists ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'} className="no-underline">
             {song.subtitle}
           </Link>
         </p>
+      </div>
+      <div className="absolute top-2 right-2 cursor-pointer">
+        {!token && (
+          <div>
+            <BsHeart className="w-6 h-6 text-gray-300" onClick={() => setShowPopup(true)} />
+          </div>
+        )}
+        {token && (
+          <div onClick={handleHeartClick}>
+            {isLiked ? (
+              <BsHeartFill className="w-6 h-6 text-red-500" />
+            ) : (
+              <BsHeart className="w-6 h-6 text-gray-300" />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

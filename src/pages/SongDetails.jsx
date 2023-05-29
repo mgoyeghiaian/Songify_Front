@@ -13,9 +13,9 @@ const SongDetails = () => {
   const { data, isFetching: isFetchingRelatedSongs, error } = useGetRelatedSongsQuery({ songid });
   if (isFetchingSongDetails || isFetchingRelatedSongs) return <Loader title="Searching Song Details...." />;
   if (error) return <Error />;
-  const dataaaa = Object.values(data.resources['shazam-songs']);
+  const dataaaa = Object.values(data?.resources['shazam-songs']);
 
-  // console.log(songData);
+  console.log('DetailsHeader', songData);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
