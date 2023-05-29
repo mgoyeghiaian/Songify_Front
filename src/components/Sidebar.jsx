@@ -57,7 +57,21 @@ const NavLinks = ({ handleClick, isLoggedIn, handleLogout }) => {
           </button>
         </>
       )}
+      <p className=" text-xs text-gray-300 mt-80">
+        &copy; {new Date().getFullYear()} Songify | Developed by{' '}
+        <a
+          href="https://www.linkedin.com/in/mgo-yeghiaian/"
+          target="_blank"
+          className="text-cyan-400 font-bold
+        hover:text-gray-300"
+          rel="noreferrer"
+        >
+          Mgo Yeghiaian
+        </a>
+        . All rights reserved.
+      </p>
     </div>
+
   );
 };
 
@@ -90,8 +104,7 @@ const Sidebar = () => {
         )}
       </div>
       <div
-        className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#000000] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${mobileMenuOpen ? 'left-0' : '-left-full'
-          }`}
+        className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#000000] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${mobileMenuOpen ? 'left-0' : '-left-full'}`}
       >
         <img src={logo} alt="logo" className="w-full object-contain h-40" />
         <NavLinks
@@ -99,6 +112,7 @@ const Sidebar = () => {
           handleLogout={handleLogout}
           handleClick={() => setMobileMenuOpen(false)}
         />
+
       </div>
     </>
   );

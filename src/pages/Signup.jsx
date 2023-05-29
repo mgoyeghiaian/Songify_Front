@@ -55,7 +55,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3030/signup', {
+      await axios.post('https://songify-v1.onrender.com/signup', {
         username,
         email,
         password,
@@ -70,12 +70,8 @@ const Signup = () => {
 
       toast.success('Signup successful');
     } catch (error) {
-      console.error('Signup failed:', error);
-
-      if (error.response && error.response.data.includes('Email already exists')) {
+      if (error.response && error.message.includes('400')) {
         toast.error('Email already registered');
-      } else if (error.response && error.response.data.includes('duplicate key error collection')) {
-        toast.error('Username already exists');
       } else {
         toast.error('Failed to signup');
       }

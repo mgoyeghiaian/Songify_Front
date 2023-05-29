@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { FaGoogle, FaFacebook } from 'react-icons/fa';
+// import { FaGoogle, FaFacebook } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -29,25 +29,27 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3030/login', { email, password });
-      const { _id, email: responseDataEmail, token, username } = response.data;
+      const response = await axios.post('https://songify-v1.onrender.com/login', { email, password });
+      const { token, username } = response.data;
 
-      // Store the token and name in cookies
-      Cookies.set('token', token, { expires: 30 }); // Set the token to expire in 30 days
+      Cookies.set('token', token, { expires: 30 });
       Cookies.set('username', username);
-
-      // Show a success toast message
       toast.success('Login successful');
 
-      // Redirect to the desired page after successful login
-      // You can replace '/dashboard' with the appropriate route
       window.location.href = '/';
     } catch (error) {
-      toast.error('Invalid email or password');
-      setError(error.message);
+      if (error.response && error.message.includes('404')) {
+        toast.error('User not found');
+        setError('User not found');
+      } else if (error.response && error.message.includes('401')) {
+        toast.error('Invalid password');
+        setError('Invalid password');
+      } else {
+        toast.error('An error occurred');
+        setError('An error occurred');
+      }
     }
   };
-  console.log(errorr);
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white w-96">

@@ -22,7 +22,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
 
   const fetchLikedSongs = () => {
     axios
-      .get('http://localhost:3030/liked-songs', {
+      .get('https://songify-v1.onrender.com/liked-songs', {
         headers: {
           authorization: `${token}`,
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       setShowPopup(true);
     } else if (isLiked) {
       axios
-        .delete(`http://localhost:3030/delete-song/${song.key}`, {
+        .delete(`https://songify-v1.onrender.com/delete-song/${song.key}`, {
           headers: {
             authorization: `${token}`,
           },
@@ -67,7 +67,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
     } else {
       axios
         .post(
-          'http://localhost:3030/save-song',
+          'https://songify-v1.onrender.com/save-song',
           { songData: song },
           {
             headers: {
