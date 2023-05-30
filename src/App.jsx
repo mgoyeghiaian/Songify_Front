@@ -35,16 +35,15 @@ const App = () => {
 
   const handleContinueWithoutLogin = () => {
     setShowPopup(false);
-    Cookies.set('isLoggedIn', 'true'); // Set cookie indicating that the user has logged in
   };
 
-  const isLoggedIn = Cookies.get('isLoggedIn');
+  const token = Cookies.get('token');
 
   return (
     <>
       <ToastContainer />
       <div className="relative flex">
-        {showPopup && !isLoggedIn && (
+        {showPopup && !token && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-4 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg">
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
             <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>

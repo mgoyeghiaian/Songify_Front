@@ -4,12 +4,11 @@ import NoImage from '../assets/NoCoverArt.png2.png';
 import PlayPause from './PlayPause';
 import Apple from '../assets/icon-g3360322f6_640.png';
 
-const SongBar = ({ song, i, artistId, isPlaying, activeSong, handlePauseClick, handlePlayClick, songId }) => {
+const SongBar = ({ song, i, artistId, isPlaying, activeSong, handlePauseClick, handlePlayClick, songId, data2 }) => {
   // console.log('Related Play', song);
-  // console.log('SongId', songId);
+  console.log('SongId', data2);
 
   console.log('Playyyyyyyyyy', song);
-
   return (
     <div className={`w-full flex flex-row items-center hover:bg-[#505052] ${activeSong?.title === song?.title ? 'bg-[#44434a]' : 'bg-transparent'} ${activeSong?.name === song?.name ? 'bg-[#44434a]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
       <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
@@ -27,15 +26,27 @@ const SongBar = ({ song, i, artistId, isPlaying, activeSong, handlePauseClick, h
               </p>
             </Link>
           ) : (
-            <Link to={`/song/${songId || song?.id}`}>
-              <p className="text-xl font-bold text-white">
-                {song?.name}
+            //    <Link to={`/song/${songId || song?.id}`}>
+            <p className="text-xl font-bold text-white">
+              {song?.name}
+            </p>
+            // </Link>
+          )}
+
+          {artistId ? (
+            <div>
+              <p className="text-sm  text-gray-300">
+                {song?.subtitle || data2?.attributes?.artist || song?.artistName}
+              </p>
+            </div>
+
+          ) : (
+            <Link to={`/artists/${data2?.relationships?.artists?.data[0]?.id}`} className="no-underline">
+              <p className="text-sm  text-gray-300">
+                {song?.subtitle || data2?.attributes?.artist || song?.artistName}
               </p>
             </Link>
           )}
-          <p className="text-base text-gray-300 mt-1">
-            {artistId ? song?.albumName : song?.artist}
-          </p>
 
           {artistId ? (
             <div>

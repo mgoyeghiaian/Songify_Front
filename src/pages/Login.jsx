@@ -34,18 +34,26 @@ const Login = () => {
 
       Cookies.set('token', token, { expires: 30 });
       Cookies.set('username', username);
-      toast.success('Login successful');
+      toast.success('Login successful', {
+        theme: 'dark',
+      });
 
       window.location.href = '/';
     } catch (error) {
       if (error.response && error.message.includes('404')) {
-        toast.error('User not found');
+        toast.error('User not found', {
+          theme: 'dark',
+        });
         setError('User not found');
       } else if (error.response && error.message.includes('401')) {
-        toast.error('Invalid password');
+        toast.error('Invalid password', {
+          theme: 'dark',
+        });
         setError('Invalid password');
       } else {
-        toast.error('An error occurred');
+        toast.error('An error occurred', {
+          theme: 'dark',
+        });
         setError('An error occurred');
       }
     }

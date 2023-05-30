@@ -5,20 +5,19 @@ import { useDispatch } from 'react-redux';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
 import PlayPause from './PlayPause';
 import { setActiveSong, playPause } from '../redux/features/playerSlice';
 import nocoverart from '../assets/NoCoverArt.png2.png';
 
-const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
+const SongCard = ({ song, i, isPlaying, activeSong, data, songId }) => {
   const dispatch = useDispatch();
   const token = Cookies.get('token');
   const [likedSongs, setLikedSongs] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    fetchLikedSongs();
-  }, []);
+  console.log('idd2', songId);
+  console.log('idd1', song?.key);
 
   const fetchLikedSongs = () => {
     axios
@@ -31,13 +30,15 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       .then((response) => {
         const likedSongsData = response.data;
         setLikedSongs(likedSongsData);
-        setIsLiked(likedSongsData.some((likedSong) => likedSong.key === song.key));
+        setIsLiked(likedSongsData.some((likedSong) => likedSong.key === song?.key || songId));
       })
       .catch((error) => {
         console.error('Error fetching liked songs:', error);
       });
   };
-
+  useEffect(() => {
+    fetchLikedSongs();
+  }, []);
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
@@ -52,13 +53,15 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       setShowPopup(true);
     } else if (isLiked) {
       axios
-        .delete(`https://songify-v1.onrender.com/delete-song/${song.key}`, {
+        .delete(`https://songify-v1.onrender.com/delete-song/${song.key || songId}`, {
           headers: {
             authorization: `${token}`,
           },
         })
         .then((response) => {
           console.log('Song removed from liked songs:', response.data);
+          toast.dark('Song removed from liked songs:', response.data);
+
           setIsLiked(false);
         })
         .catch((error) => {
@@ -77,6 +80,9 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
         )
         .then((response) => {
           console.log('Song added to liked songs:', response.data);
+          toast.success('Song added to liked songs:', {
+            theme: 'dark',
+          }, response.data);
           setIsLiked(true);
         })
         .catch((error) => {
@@ -84,7 +90,16 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
         });
     }
   };
+  // console.log(song?.relationships?.artists?.data[0]?.id);
+  let toPath;
 
+  if (song.artists) {
+    toPath = `/artists/${song?.artists[0]?.adamid}`;
+  } else if (song?.relationships?.artists) {
+    toPath = `/artists/${song?.relationships?.artists?.data[0]?.id}`;
+  } else {
+    toPath = '/top-artists';
+  }
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer relative">
       {showPopup && (
@@ -111,22 +126,23 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
         >
           <PlayPause
             song={song}
+            dataa={data.attributes}
             isPlaying={isPlaying}
             activeSong={activeSong}
             handlePause={handlePauseClick}
             handlePlay={handlePlayClick}
           />
         </div>
-        <img src={song.images?.coverart ? song.images.coverart : nocoverart} alt="song_img" />
+        <img src={song.images?.coverart ? song.images.coverart : song?.attributes?.images?.coverArtHq || song?.images?.coverArt || song?.images?.artistAvatar || song?.artwork?.url.replace('{w}', '350').replace('{h}', '350') || nocoverart} alt="song_img" />
       </div>
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
-          <Link to={`/songs/${song?.key}`} className="no-underline">
-            {song.title}
+          <Link to={`/songs/${song.key ? song?.key : songId}`} className="no-underline">
+            {song.title || song?.title || song?.name}
           </Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
-          <Link to={song.artists ? `/artists/${song?.artists[0]?.adamid}` : '/top-artist'} className="no-underline">
+          <Link to={song.artists ? `/artists/${song?.artists[0]?.adamid}` : '/top-artists'} className="no-underline">
             {song.subtitle}
           </Link>
         </p>
@@ -140,7 +156,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
         {token && (
           <div onClick={handleHeartClick}>
             {isLiked ? (
-              <BsHeartFill className="w-6 h-6 text-red-500" />
+              <BsHeartFill className="w-6 h-6 text-rose-700" />
             ) : (
               <BsHeart className="w-6 h-6 text-gray-300" />
             )}

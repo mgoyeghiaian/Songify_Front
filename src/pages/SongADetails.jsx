@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
-import { DetailsHeader, Error, Loader } from '../components';
+import { DetailsHeader, Loader } from '../components';
 import { useGetSongADetailsQuery } from '../redux/services/Spotify';
 // import { setActiveSong, playPause } from '../redux/features/playerSlice';
 

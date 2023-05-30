@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { data } from 'autoprefixer';
 import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
 import { useGetArtistDetailsQuery } from '../redux/services/Spotify';
 import { useGetYoutubeDetailsQuery } from '../redux/services/Youtube';
@@ -13,14 +14,13 @@ const ArtistDetails = () => {
 
   const [artistName, setArtistName] = useState('');
   const [artistGenre, setArtistGenre] = useState('');
-
+  console.log('artisttt', artistName);
   useEffect(() => {
     if (artistData) {
       const adataaa = artistData?.resources;
       const DAtaV1 = Object.values(adataaa?.songs);
-
       setArtistName(DAtaV1[0].attributes?.artistName);
-      setArtistGenre(DAtaV1[0].attributes?.albumName || DAtaV1[0].attributes?.genreNames[0]);
+      setArtistGenre(DAtaV1[0].attributes?.genreNames[0]);
     }
   }, [artistData]);
 
@@ -56,14 +56,15 @@ const ArtistDetails = () => {
             <iframe
               id="inlineFrameExample"
               title="Inline Frame Example"
-              className="mx-auto w-full sm:w-3/4 h-48 md:h-[450px]"
+              className="mx-auto w-full h-[450px] lg:h-[650px]"
               src={`https://www.youtube.com/embed/${videoId}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
-
           )}
         </div>
+        <h1 className="font-bold text-3xl text-white mb-5 ">Top Songs & Albums:</h1>
+
         <RelatedSongs data={Object.values(adataaa?.songs)} artistId={artistId} isPlaying={isPlaying} activeSong={activeSong} />
       </div>
     </div>

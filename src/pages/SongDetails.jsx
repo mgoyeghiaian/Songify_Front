@@ -16,7 +16,6 @@ const SongDetails = () => {
   const dataaaa = Object.values(data?.resources['shazam-songs']);
 
   console.log('DetailsHeader', songData);
-
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
@@ -39,6 +38,7 @@ const SongDetails = () => {
           )) : <p className="text-gray-400 text-base my-1">Sorry, No Lyrics!</p>}
         </div>
       </div>
+      <h1 className="font-bold text-3xl text-white mb-5 ">Related Songs:</h1>
       <RelatedSongs
         data={dataaaa}
         isPlaying={isPlaying}

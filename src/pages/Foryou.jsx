@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
+import { data } from 'autoprefixer';
 import SongCard from '../components/SongCard';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
@@ -11,7 +12,7 @@ const Foryou = () => {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const [likedSongs, setLikedSongs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [errorr, setError] = useState(null);
   const token = Cookies.get('token');
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const Foryou = () => {
         const likedSongsData = response.data;
         setLikedSongs(likedSongsData);
         setIsLoading(false);
+        console.log(likedSongsData);
       })
       .catch((error) => {
         console.error('Error fetching liked songs:', error);
@@ -43,7 +45,7 @@ const Foryou = () => {
     return <Loader title="Loading liked songs..." />;
   }
 
-  if (error) {
+  if (errorr) {
     return <Error />;
   }
 
@@ -63,16 +65,20 @@ const Foryou = () => {
         </h2>
       )}
       <div className="flex flex-wrap sm:justify-center justify-center gap-8">
-        {likedSongs.map((song, i) => (
-          <SongCard
-            key={song.key}
-            song={song}
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            data={likedSongs}
-            i={i}
-          />
-        ))}
+        {likedSongs.map((song, i) => {
+          const songId = song.webUrl ? song.webUrl.match(/\d+/)[0] : song.id; // Check if webUrl exists before extracting the numeric portion
+          return (
+            <SongCard
+              key={song.key}
+              song={song}
+              songId={songId}
+              isPlaying={isPlaying}
+              activeSong={activeSong}
+              data={likedSongs}
+              i={i}
+            />
+          );
+        })}
       </div>
     </div>
   );

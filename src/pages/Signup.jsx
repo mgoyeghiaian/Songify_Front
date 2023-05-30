@@ -68,12 +68,18 @@ const Signup = () => {
 
       navigate('/login');
 
-      toast.success('Signup successful');
+      toast.success('Signup successful', {
+        theme: 'dark',
+      });
     } catch (error) {
       if (error.response && error.message.includes('400')) {
-        toast.error('Email already registered');
+        toast.error('Email already registered', {
+          theme: 'dark',
+        });
       } else {
-        toast.error('Failed to signup');
+        toast.error('Failed to signup', {
+          theme: 'dark',
+        });
       }
     }
   };

@@ -4,7 +4,6 @@ import React, { useRef, useEffect } from 'react';
 const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
   const ref = useRef(null);
   console.log('Activvve', activeSong);
-  // eslint-disable-next-line no-unused-expressions
   if (ref.current) {
     if (isPlaying) {
       ref.current.play();
@@ -16,7 +15,6 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
   useEffect(() => {
     ref.current.volume = volume;
   }, [volume]);
-  // updates audio element only on seekTime change (and not on each rerender):
   useEffect(() => {
     ref.current.currentTime = seekTime;
   }, [seekTime]);
