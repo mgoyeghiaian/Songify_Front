@@ -20,7 +20,7 @@ const ArtistDetails = () => {
       const adataaa = artistData?.resources;
       const DAtaV1 = Object.values(adataaa?.songs);
       setArtistName(DAtaV1[0].attributes?.artistName);
-      setArtistGenre(DAtaV1[0].attributes?.genreNames[0]);
+      setArtistGenre(DAtaV1[0].attributes?.albumName || DAtaV1[0].attributes?.genreNames[0]);
     }
   }, [artistData]);
 
