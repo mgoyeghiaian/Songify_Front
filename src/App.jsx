@@ -12,7 +12,7 @@ import Foryou from './pages/Foryou';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -48,10 +48,13 @@ const App = () => {
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
             <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
             <div className="mt-4">
-              <Link to="/" className="text-blue-500 mr-4" onClick={handleContinueWithoutLogin}>
+              <Link to="/" className="text-blue-500 hover:text-blue-300 text-cente mr-4 mb-5" onClick={handleContinueWithoutLogin}>
                 Continue without login
               </Link>
-              <Link to="/login" className="text-blue-500" onClick={handleContinueWithoutLogin}>
+              <br />
+            </div>
+            <div className="mt-2">
+              <Link to="/login" className="text-blue-500 hover:text-blue-300 text-center" onClick={handleContinueWithoutLogin}>
                 Login
               </Link>
             </div>
