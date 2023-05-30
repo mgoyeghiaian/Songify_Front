@@ -4,8 +4,8 @@ import NoImage from '../assets/NoCoverArt.png2.png';
 
 const DetailsHeader = ({ artistId, artistData, songData }) => {
   const artistt = artistData?.artists[artistId].attributes;
-  console.log(artistt);
-  console.log(artistData);
+  // console.log(artistt);
+  // console.log(artistData);
 
   return (
     <div className="relative w-full flex flex-col">

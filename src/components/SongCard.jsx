@@ -16,8 +16,8 @@ const SongCard = ({ song, i, isPlaying, activeSong, data, songId }) => {
   const [likedSongs, setLikedSongs] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  console.log('idd2', songId);
-  console.log('idd1', song?.key);
+  // console.log('idd2', songId);
+  // console.log('idd1', song?.key);
 
   const fetchLikedSongs = () => {
     axios

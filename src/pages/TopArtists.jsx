@@ -4,7 +4,7 @@ import { useGetTopChartsQuery } from '../redux/services/Spotify';
 const TopArtists = () => {
   const { data, isFetching, error } = useGetTopChartsQuery();
   const CountryData = data?.tracks;
-  console.log(CountryData);
+  // console.log(CountryData);
   if (isFetching) return <Loader title="Loading Top Artist" />;
   if (error) return <Error />;
   return (

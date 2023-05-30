@@ -14,7 +14,7 @@ const ArtistDetails = () => {
 
   const [artistName, setArtistName] = useState('');
   const [artistGenre, setArtistGenre] = useState('');
-  console.log('artisttt', artistName);
+  // console.log('artisttt', artistName);
   useEffect(() => {
     if (artistData) {
       const adataaa = artistData?.resources;
@@ -31,14 +31,14 @@ const ArtistDetails = () => {
 
   if (isFetchingArtistDetails) return <Loader title="Loading Artist Details" />;
   if (error) return <Error />;
-  console.log('youtubeDetails', YoutubeData);
-  console.log('songsssss', artistGenre);
+  // console.log('youtubeDetails', YoutubeData);
+  // console.log('songsssss', artistGenre);
   const adataaa = artistData?.resources;
   const videoData = YoutubeData?.items[0];
   const videoUrl = videoData?.url;
   const videoId = videoUrl?.split('v=')[1];
-  console.log(videoId);
-  console.log('Videourl', videoData);
+  // console.log(videoId);
+  // console.log('Videourl', videoData);
 
   return (
     <div>

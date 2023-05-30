@@ -8,7 +8,7 @@ const SongBar = ({ song, i, artistId, isPlaying, activeSong, handlePauseClick, h
   // console.log('Related Play', song);
   console.log('SongId', data2);
 
-  console.log('Playyyyyyyyyy', song);
+  // console.log('Playyyyyyyyyy', song);
   return (
     <div className={`w-full flex flex-row items-center hover:bg-[#505052] ${activeSong?.title === song?.title ? 'bg-[#44434a]' : 'bg-transparent'} ${activeSong?.name === song?.name ? 'bg-[#44434a]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
       <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
