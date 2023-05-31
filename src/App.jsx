@@ -9,10 +9,12 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import 'react-toastify/dist/ReactToastify.css';
 import Foryou from './pages/Foryou';
+import './index.css';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
   const [showPopup, setShowPopup] = useState(true);
+  const [isBlurred, setIsBlurred] = useState(true);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -35,6 +37,7 @@ const App = () => {
 
   const handleContinueWithoutLogin = () => {
     setShowPopup(false);
+    setIsBlurred(false);
   };
 
   const token = Cookies.get('token');
@@ -42,23 +45,27 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <div className="relative flex">
-        {showPopup && !token && (
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
-            <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
-            <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
-            <div className="mt-4">
-              <Link to="/" className="text-blue-500 hover:text-blue-300 mr-4" onClick={handleContinueWithoutLogin}>
-                Continue without login
-              </Link>
-              <Link to="/login" className="text-blue-500 hover:text-blue-300" onClick={handleContinueWithoutLogin}>
-                Login
-              </Link>
-            </div>
+      {showPopup && !token && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
+          <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
+          <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
+          <div className="mt-4">
+            <Link
+              to="/"
+              className="text-blue-500 hover:text-blue-300 mr-4"
+              onClick={handleContinueWithoutLogin}
+            >
+              Continue without login
+            </Link>
+            <Link to="/login" className="text-blue-500 hover:text-blue-300">
+              Login
+            </Link>
           </div>
-        )}
+        </div>
+      )}
+      <div className="relative flex ">
         <Sidebar />
-        <div className="flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000]">
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] ${isBlurred ? 'blur' : ''}`}>
           <Searchbar />
           <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40">
