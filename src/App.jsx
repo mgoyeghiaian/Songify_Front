@@ -12,38 +12,38 @@ import Foryou from './pages/Foryou';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
-  // const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(true);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     event.preventDefault();
-  //     sessionStorage.removeItem('hasVisited');
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      sessionStorage.removeItem('hasVisited');
+    };
 
-  //   const hasVisitedBefore = sessionStorage.getItem('hasVisited');
-  //   if (!hasVisitedBefore) {
-  //     setShowPopup(true);
-  //     sessionStorage.setItem('hasVisited', 'true');
-  //   }
+    const hasVisitedBefore = sessionStorage.getItem('hasVisited');
+    if (!hasVisitedBefore) {
+      setShowPopup(true);
+      sessionStorage.setItem('hasVisited', 'true');
+    }
 
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
-  // const handleContinueWithoutLogin = () => {
-  //   setShowPopup(false);
-  // };
+  const handleContinueWithoutLogin = () => {
+    setShowPopup(false);
+  };
 
-  // const token = Cookies.get('token');
+  const token = Cookies.get('token');
 
   return (
     <>
       <ToastContainer />
       <div className="relative flex">
-        {/* {showPopup && !token && (
+        {showPopup && !token && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
             <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
@@ -56,8 +56,7 @@ const App = () => {
               </Link>
             </div>
           </div>
-        )} */}
-
+        )}
         <Sidebar />
         <div className="flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000]">
           <Searchbar />
