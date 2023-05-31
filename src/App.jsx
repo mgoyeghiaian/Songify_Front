@@ -72,7 +72,7 @@ const App = () => {
         <Sidebar />
         <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] ${isBlurred && !token ? 'blur' : ''}`}>
           <Searchbar />
-          <div className="px-6 h-[calc(100svh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+          <div className="px-6  overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse h-100dvh">
             <div className="flex-1 h-fit pb-40">
               <Routes>
                 <Route path="/" element={<Discover />} />
