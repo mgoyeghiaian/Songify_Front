@@ -42,7 +42,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <div className="relative flex min-h-screen h-[calc(100vh-72px)]">
+      <div className="relative flex min-h-scree">
         {showPopup && !token && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
@@ -61,7 +61,7 @@ const App = () => {
         <Sidebar />
         <div className="flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000]">
           <Searchbar />
-          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+          <div className="px-6 overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40">
               <Routes>
                 <Route path="/" element={<Discover />} />
