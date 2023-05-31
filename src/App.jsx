@@ -57,7 +57,12 @@ const App = () => {
             >
               Continue without login
             </Link>
-            <Link to="/login" className="text-blue-500 hover:text-blue-300">
+            <Link
+              to="/login"
+              className="text-blue-500 hover:text-blue-300
+              "
+              onClick={handleContinueWithoutLogin}
+            >
               Login
             </Link>
           </div>
@@ -65,7 +70,7 @@ const App = () => {
       )}
       <div className="relative flex ">
         <Sidebar />
-        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] ${isBlurred ? 'blur' : ''}`}>
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] ${isBlurred && !token ? 'blur' : ''}`}>
           <Searchbar />
           <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40">
