@@ -5,7 +5,7 @@ export const YoutubeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://youtube-search-results.p.rapidapi.com',
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', 'cba461bb13msh69fc7ee7e612747p1e0422jsna904f4c80aed');
+      headers.set('X-RapidAPI-Key', '5bd6d78fc3mshc553a0b2d3aeb0fp1de3a7jsnf5784f44bb26');
       return headers;
     },
   }),

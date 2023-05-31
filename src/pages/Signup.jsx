@@ -86,7 +86,7 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white w-96">
+      <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white w-[380px]">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
