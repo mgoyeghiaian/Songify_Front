@@ -42,7 +42,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <div className="relative flex min-h-screen">
+      <div className="relative flex min-h-screen h-[calc(100vh-72px)]">
         {showPopup && !token && (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
