@@ -17,7 +17,7 @@ const Searchbar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off" className="w-[270px] mt-4 ml-4 mb-8">
+    <form onSubmit={handleSubmit} autoComplete="off" className="w-[270px] mt-4 ml-4 ">
       <label htmlFor="search-field" className="sr-only">Search all Songs</label>
       <div className={`flex items-center rounded-full p-2 ml-5 mt-1   ${expanded ? 'border border-gray-200' : ''}`}>
         <FiSearch

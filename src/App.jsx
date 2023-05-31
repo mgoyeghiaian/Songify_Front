@@ -44,17 +44,17 @@ const App = () => {
       <ToastContainer />
       <div className="relative flex">
         {showPopup && !token && (
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-4 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-4 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px]">
             <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
             <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
             <div className="mt-4">
-              <Link to="/" className="text-blue-500 hover:text-blue-300 text-cente mr-4 mb-5" onClick={handleContinueWithoutLogin}>
+              <Link to="/" className="text-blue-500 hover:text-blue-300  mr-4" onClick={handleContinueWithoutLogin}>
                 Continue without login
               </Link>
               <br />
             </div>
             <div className="mt-2">
-              <Link to="/login" className="text-blue-500 hover:text-blue-300 text-center" onClick={handleContinueWithoutLogin}>
+              <Link to="/login" className="text-blue-500 hover:text-blue-300 " onClick={handleContinueWithoutLogin}>
                 Login
               </Link>
             </div>
