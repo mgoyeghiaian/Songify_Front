@@ -57,7 +57,7 @@ const NavLinks = ({ handleClick, isLoggedIn, handleLogout }) => {
           </button>
         </>
       )}
-      <p className=" text-xs text-gray-300 mt-80">
+      <p className=" text-xs text-gray-300 mt-2">
         &copy; {new Date().getFullYear()} Songify | Developed by{' '}
         <a
           href="https://www.linkedin.com/in/mgo-yeghiaian/"

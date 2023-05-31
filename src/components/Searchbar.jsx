@@ -17,11 +17,11 @@ const Searchbar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off" className="w-[270px] mt-4 ml-4 ">
+    <form onSubmit={handleSubmit} autoComplete="off" className="w-[270px] m-5  ">
       <label htmlFor="search-field" className="sr-only">Search all Songs</label>
-      <div className={`flex items-center rounded-full p-2 ml-5 mt-1   ${expanded ? 'border border-gray-200' : ''}`}>
+      <div className="flex items-center rounded-full p-2 ml-5 mt-1   border-gray-200">
         <FiSearch
-          className={`w-5 h-5 mt-1    text-white cursor-pointer hover:text-gray-400 transform transition-transform duration-500 ${expanded ? 'rotate-60' : ''}`}
+          className="w-5 h-5  text-white cursor-pointer hover:text-gray-400 transform "
           onClick={toggleExpansion}
         />
         {expanded && (

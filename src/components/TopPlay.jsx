@@ -94,9 +94,10 @@ const TopPlay = () => {
         >
           {topPlays?.map((song, i) => (
             <SwiperSlide
+              i={i}
               key={song?.key}
-              style={{ width: '25%', height: 'auto' }}
-              className="shadow-lg animate-slideright bg-gray-800 rounded-lg h-56 w-full hover:opacity-50"
+              style={{ width: '28%', height: 'auto' }}
+              className="shadow-lg animate-slideright bg-gray-900 rounded-lg w-full hover:opacity-50"
             >
               <Link to={`/artists/${song?.artists[0]?.adamid}`}>
                 <img src={song?.images.background} alt="name" className="rounded-full w-full object-cover p-3 " />
