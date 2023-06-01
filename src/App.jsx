@@ -44,7 +44,7 @@ const App = () => {
   const token = Cookies.get('token');
 
   return (
-    <>
+    <div className="h-fit">
       <ToastContainer />
       {showPopup && !token && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
@@ -60,8 +60,7 @@ const App = () => {
             </Link>
             <Link
               to="/login"
-              className="text-blue-500 hover:text-blue-300
-              "
+              className="text-blue-500 hover:text-blue-300"
               onClick={handleContinueWithoutLogin}
             >
               Login
@@ -71,9 +70,11 @@ const App = () => {
       )}
       <div className="relative flex  h-screen">
         <Sidebar />
-        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] ${isBlurred && !token ? 'blur' : ''}`}>
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] 
+        ${isBlurred && !token ? 'blur' : ''} h-fit`}
+        >
           <Searchbar />
-          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse  ">
+          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40">
               <Routes>
                 <Route path="/" element={<Discover />} />
@@ -100,7 +101,7 @@ const App = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
