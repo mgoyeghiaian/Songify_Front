@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
+import { Sidebar, Searchbar, MusicPlayer, TopPlay } from './components';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts, SongADetails } from './pages';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -14,7 +14,8 @@ import './index.css';
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
   const [showPopup, setShowPopup] = useState(true);
-  const [isBlurred, setIsBlurred] = useState(true);
+  const location = useLocation();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -36,15 +37,24 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const pathsToScroll = ['/signup', '/top-artists', '/top-charts', '/', '/login', '/around-you'];
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile && scrollRef.current && pathsToScroll.includes(location.pathname)) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
+
   const handleContinueWithoutLogin = () => {
     setShowPopup(false);
-    setIsBlurred(false);
   };
 
   const token = Cookies.get('token');
 
   return (
-    <div className="h-fit">
+    <div className="h-fill ">
       <ToastContainer />
       {showPopup && !token && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
@@ -68,15 +78,15 @@ const App = () => {
           </div>
         </div>
       )}
-      <div className="relative flex  h-screen">
+      <div className="relative flex">
         <Sidebar />
-        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] 
-        ${isBlurred && !token ? 'blur' : ''} h-fit`}
-        >
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />
           <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-            <div className="flex-1 h-fit pb-40">
+            <div className="flex-1 h-fit pb-40" ref={scrollRef}>
               <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
                 <Route path="/" element={<Discover />} />
                 <Route path="/top-artists" element={<TopArtists />} />
                 <Route path="/top-charts" element={<TopCharts />} />
@@ -85,8 +95,6 @@ const App = () => {
                 <Route path="/songs/:songid" element={<SongDetails />} />
                 <Route path="/song/:songid" element={<SongADetails />} />
                 <Route path="/search/:searchTerm" element={<Search />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
                 <Route path="/foryou" element={<Foryou />} />
               </Routes>
             </div>
@@ -104,5 +112,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;

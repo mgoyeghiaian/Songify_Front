@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { HiOutlineMenu, HiOutlineHeart, HiOutlineLogout, HiOutlineLogin } from 'react-icons/hi';
 import Cookies from 'js-cookie';
@@ -87,18 +87,20 @@ const Sidebar = () => {
   return (
     <>
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-gradient-to-tl from-gray-800 to-[#000000]">
-        <img src={logo} alt="logo" className="w-full h-40 object-contain" />
+        <Link to="/">
+          <img src={logo} alt="logo" className="w-full h-40 object-contain" />
+        </Link>
         <NavLinks isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       </div>
       <div className="absolute md:hidden block top-6 right-3">
         {mobileMenuOpen ? (
           <RiCloseLine
-            className="w-6 h-6 text-white mr-2"
+            className="w-6 h-6 text-white mr-2 cursor-pointer hover:opacity-80"
             onClick={() => setMobileMenuOpen(false)}
           />
         ) : (
           <HiOutlineMenu
-            className="w-6 h-6 text-white mr-2"
+            className="w-6 h-6 text-white mr-2 cursor-pointer hover:opacity-80"
             onClick={() => setMobileMenuOpen(true)}
           />
         )}

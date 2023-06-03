@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  margin: 0;
+}
 /* Active Navigation Link */
 .active {
   @apply text-cyan-500;
