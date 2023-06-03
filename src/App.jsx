@@ -78,7 +78,7 @@ const App = () => {
           </div>
         </div>
       )}
-      <div className="relative flex">
+      <div className="relative flex h-[100svh]">
         <Sidebar />
         <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />

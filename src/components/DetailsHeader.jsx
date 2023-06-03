@@ -14,10 +14,10 @@ const DetailsHeader = ({ artistId, artistData, songData }) => {
         <img
           alt="art"
           src={artistId ? artistt.artwork?.url.replace('{w}', '400').replace('{h}', '400') : songData?.images?.coverart || songData.artwork?.url.replace('{w}', '400').replace('{h}', '400') || NoImage}
-          className="sm:w-48 w-48 sm:h-48 h-28 rounded-full object-cover border-2 shadow-xl shadow-gray-600 p-2 bg-gray-500"
+          className="sm:w-48 sm:h-48 h-28 rounded-full object-cover border-2 shadow-xl shadow-gray-600 p-2 bg-gray-500"
         />
         <div className="ml-8">
-          <p className="font-bolder sm:text-3xl text-xl text-white mt-8">{artistId ? artistt.name : songData?.title || songData?.name}</p>
+          <p className="font-bolder sm:text-3xl text-xl text-white md:mt-8">{artistId ? artistt.name : songData?.title || songData?.name}</p>
           {!artistId && (
             <Link to={`/artists/${songData?.artists ? songData?.artists[0]?.adamid : songData?.artists}`}>
               <p className="text-basse text-gray-400 mt-2">
