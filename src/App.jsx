@@ -79,8 +79,8 @@ const App = () => {
         <Sidebar />
         <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />
-          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-            <div className="flex-1 h-full " ref={scrollRef}>
+          <div className="px-6 h-[calc(100lvh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+            <div className="flex-1 h-full" ref={scrollRef}>
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
