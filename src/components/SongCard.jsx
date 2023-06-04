@@ -91,17 +91,17 @@ const SongCard = ({ song, i, isPlaying, activeSong, data, songId }) => {
     }
   };
   // console.log(song?.relationships?.artists?.data[0]?.id);
-  let toPath;
+  // let toPath;
 
-  if (song.artists) {
-    toPath = `/artists/${song?.artists[0]?.adamid}`;
-  } else if (song?.relationships?.artists) {
-    toPath = `/artists/${song?.relationships?.artists?.data[0]?.id}`;
-  } else {
-    toPath = '/top-artists';
-  }
+  // if (song.artists) {
+  //   toPath = `/artists/${song?.artists[0]?.adamid}`;
+  // } else if (song?.relationships?.artists) {
+  //   toPath = `/artists/${song?.relationships?.artists?.data[0]?.id}`;
+  // } else {
+  //   toPath = '/top-artists';
+  // }
   return (
-    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer relative">
+    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       {showPopup && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
           <div className="bg-black p-4 rounded-lg text-center mb-12">

@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 body{
-  margin: 0;
+height: 99svh !important;
 }
+
 /* Active Navigation Link */
 .active {
   @apply text-cyan-500;
