@@ -85,7 +85,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full ">
+    <div className="flex justify-center items-center w-full">
       <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white
        md:w-[450px] w-[100%] mt-10 sm:mt-40"
       >
