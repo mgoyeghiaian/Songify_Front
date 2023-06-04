@@ -8,12 +8,12 @@ const Apptest = () => {
   const { activeSong } = useSelector((state) => state.player);
 
   return (
-    <div className="flex h-[calc(100vh)]">
+    <div className="flex h-[calc(100vh)] ">
       <Sidebar />
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
         <Searchbar />
 
-        <div className="px-6 h-[calc(100vh-72px)]  overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+        <div className="px-6 h-[calc(95vh-72px)] mt-5  overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
           <div className="flex-1 h-fit pb-40">
             <Routes>
               <Route path="/" element={<Discover />} />
