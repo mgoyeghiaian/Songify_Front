@@ -4,11 +4,8 @@ import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { Sidebar, Searchbar, MusicPlayer, TopPlay } from './components';
-import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts, SongADetails } from './pages';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts, SongADetails, Login, Signup, Foryou } from './pages';
 import 'react-toastify/dist/ReactToastify.css';
-import Foryou from './pages/Foryou';
 import './index.css';
 
 const App = () => {
@@ -54,7 +51,7 @@ const App = () => {
   const token = Cookies.get('token');
 
   return (
-    <div className="h-[100svh] ">
+    <div className="h-fill">
       <ToastContainer />
       {showPopup && !token && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
@@ -78,9 +75,10 @@ const App = () => {
           </div>
         </div>
       )}
-      <div className="relative flex h-[100svh]">
+
+      <div className="relative flex">
         <Sidebar />
-        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000]  ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />
           <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
             <div className="flex-1 h-fit pb-40" ref={scrollRef}>

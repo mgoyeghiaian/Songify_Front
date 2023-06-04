@@ -6,6 +6,9 @@ import Search from './Search';
 import TopCharts from './TopCharts';
 import AroundYou from './AroundYou';
 import SongADetails from './SongADetails';
+import Foryou from './Foryou';
+import Login from './Login';
+import Signup from './Signup';
 
 export {
   Discover,
@@ -16,4 +19,7 @@ export {
   TopCharts,
   AroundYou,
   SongADetails,
+  Foryou,
+  Login,
+  Signup,
 };
