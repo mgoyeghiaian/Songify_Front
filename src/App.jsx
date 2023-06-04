@@ -51,7 +51,7 @@ const App = () => {
   const token = Cookies.get('token');
 
   return (
-    <div className="h-fill">
+    <div className="h-screen">
       <ToastContainer />
       {showPopup && !token && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
