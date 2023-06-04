@@ -51,30 +51,32 @@ const App = () => {
   const token = Cookies.get('token');
 
   return (
-    <div className="h-screens">
+    <>
       <ToastContainer />
-      {showPopup && !token && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
-          <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
-          <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
-          <div className="mt-4">
-            <Link
-              to="/"
-              className="text-blue-500 hover:text-blue-300 mr-4"
-              onClick={handleContinueWithoutLogin}
-            >
-              Continue without login
-            </Link>
-            <Link
-              to="/login"
-              className="text-blue-500 hover:text-blue-300"
-              onClick={handleContinueWithoutLogin}
-            >
-              Login
-            </Link>
+      {
+        showPopup && !token && (
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
+            <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
+            <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
+            <div className="mt-4">
+              <Link
+                to="/"
+                className="text-blue-500 hover:text-blue-300 mr-4"
+                onClick={handleContinueWithoutLogin}
+              >
+                Continue without login
+              </Link>
+              <Link
+                to="/login"
+                className="text-blue-500 hover:text-blue-300"
+                onClick={handleContinueWithoutLogin}
+              >
+                Login
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
       <div className="relative flex h-screen">
         <Sidebar />
         <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
@@ -106,7 +108,7 @@ const App = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 export default App;
