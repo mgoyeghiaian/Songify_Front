@@ -8,7 +8,7 @@ const Apptest = () => {
   const { activeSong } = useSelector((state) => state.player);
 
   return (
-    <div className="relative flex h-[calc(100vh]  overflow-y-scroll">
+    <div className="flex h-[calc(100vh)]">
       <Sidebar />
       <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
         <Searchbar />
