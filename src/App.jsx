@@ -51,7 +51,7 @@ const App = () => {
   const token = Cookies.get('token');
 
   return (
-    <div className="h-screen">
+    <div className="h-screens">
       <ToastContainer />
       {showPopup && !token && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
@@ -80,7 +80,7 @@ const App = () => {
         <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />
           <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
-            <div className="flex-1 h-full pb-40" ref={scrollRef}>
+            <div className="flex-1 h-full " ref={scrollRef}>
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
