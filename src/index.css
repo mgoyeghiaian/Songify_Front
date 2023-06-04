@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-height: 99svh;
+height: 100% !important;
 }
 
 /* Active Navigation Link */
