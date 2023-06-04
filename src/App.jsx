@@ -26,23 +26,23 @@ const App = () => {
       sessionStorage.setItem('hasVisited', 'true');
     }
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    window.scrollTo(0, 0);
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+    // window.scrollTo(0, 0);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+    // return () => {
+    //   window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
   }, []);
 
-  useEffect(() => {
-    const pathsToScroll = ['/signup', '/top-artists', '/top-charts', '/', '/login', '/around-you'];
+  // useEffect(() => {
+  //   const pathsToScroll = ['/signup', '/top-artists', '/top-charts', '/', '/login', '/around-you'];
 
-    const isMobile = window.innerWidth <= 768;
+  //   const isMobile = window.innerWidth <= 768;
 
-    if (isMobile && scrollRef.current && pathsToScroll.includes(location.pathname)) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [location]);
+  //   if (isMobile && scrollRef.current && pathsToScroll.includes(location.pathname)) {
+  //     scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // }, [location]);
 
   const handleContinueWithoutLogin = () => {
     setShowPopup(false);
