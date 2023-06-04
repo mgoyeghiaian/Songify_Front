@@ -5,7 +5,7 @@ export const SpotifyApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shazam.p.rapidapi.com',
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', 'cfe5bf278fmsh52b32c92c6844a9p126853jsn0e7824249e9e');
+      headers.set('X-RapidAPI-Key', '289a97682cmsh4e2757277a78a89p188ecajsne6a91c39e6d7');
       return headers;
     },
   }),
