@@ -53,34 +53,36 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      {showPopup && !token && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
-          <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
-          <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
-          <div className="mt-4">
-            <Link
-              to="/"
-              className="text-blue-500 hover:text-blue-300 mr-4"
-              onClick={handleContinueWithoutLogin}
-            >
-              Continue without login
-            </Link>
-            <Link
-              to="/login"
-              className="text-blue-500 hover:text-blue-300"
-              onClick={handleContinueWithoutLogin}
-            >
-              Login
-            </Link>
+      {
+        showPopup && !token && (
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-tr from-gray-900 to-[#000000] p-6 border border-gray-300 shadow-md text-center text-white font-bold z-50 rounded-lg w-[350px] md:w-[450px] lg:w-[550px]">
+            <h2 className="text-2xl mb-2">Welcome to Songify V1</h2>
+            <p className="text-lg">We're working hard on V2 to bring you an even better experience!</p>
+            <div className="mt-4">
+              <Link
+                to="/"
+                className="text-blue-500 hover:text-blue-300 mr-4"
+                onClick={handleContinueWithoutLogin}
+              >
+                Continue without login
+              </Link>
+              <Link
+                to="/login"
+                className="text-blue-500 hover:text-blue-300"
+                onClick={handleContinueWithoutLogin}
+              >
+                Login
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
       <div className="relative flex h-screen">
         <Sidebar />
-        <div className="flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit">
+        <div className={`flex-1 flex flex-col bg-gradient-to-tr from-gray-900 to-[#000000] h-fit ${showPopup && !token ? 'blur' : ''}`}>
           <Searchbar />
-          <div className="px-6 overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse" style={{ maxHeight: 'calc(100vh - 72px)' }}>
-            <div className="flex-1" ref={scrollRef}>
+          <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
+            <div className="flex-1 h-full" ref={scrollRef}>
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
@@ -95,7 +97,7 @@ const App = () => {
                 <Route path="/foryou" element={<Foryou />} />
               </Routes>
             </div>
-            <div className="xl:sticky relative top-0">
+            <div className="xl:sticky relative top-0 h-fit">
               <TopPlay />
             </div>
           </div>
@@ -109,5 +111,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;
