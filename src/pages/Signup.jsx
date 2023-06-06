@@ -4,6 +4,8 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const handleUsernameChange = (event) => {
@@ -55,16 +58,19 @@ const Signup = () => {
     }
 
     try {
-      await axios.post('https://songify-v1.onrender.com/signup', {
+      // Send signup data to the backend for registration
+      await axios.post('/api/signup', {
         username,
         email,
         password,
+        phoneNumber,
       });
 
       setUsername('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+      setPhoneNumber('');
 
       navigate('/login');
 
@@ -72,7 +78,7 @@ const Signup = () => {
         theme: 'dark',
       });
     } catch (error) {
-      if (error.response && error.message.includes('400')) {
+      if (error.response && error.response.status === 400) {
         toast.error('Email already registered', {
           theme: 'dark',
         });
@@ -86,9 +92,7 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white
-       md:w-[450px] w-[100%] mt-10 sm:mt-40"
-      >
+      <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white md:w-[450px] w-[100%] mt-10 sm:mt-40">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -134,18 +138,18 @@ const Signup = () => {
                 required
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="absolute top-2 right-2 cursor-pointer"
                 onClick={handleTogglePasswordVisibility}
               >
                 {showPassword ? (
-                  <FiEyeOff className="text-gray-300 w-6 h-6" />
+                  <FiEyeOff className="text-gray-500" />
                 ) : (
-                  <FiEye className="text-gray-300 w-6 h-6" />
+                  <FiEye className="text-gray-500" />
                 )}
               </div>
             </div>
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="confirmPassword" className="block mb-2 font-medium">
               Confirm Password
             </label>
@@ -160,33 +164,43 @@ const Signup = () => {
                 required
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                className="absolute top-2 right-2 cursor-pointer"
                 onClick={handleToggleConfirmPasswordVisibility}
               >
                 {showConfirmPassword ? (
-                  <FiEyeOff className="text-gray-300 w-6 h-6" />
+                  <FiEyeOff className="text-gray-500" />
                 ) : (
-                  <FiEye className="text-gray-300 w-6 h-6" />
+                  <FiEye className="text-gray-500" />
                 )}
               </div>
             </div>
+            {passwordError && <p className="text-red-500 mt-1">{passwordError}</p>}
           </div>
-          {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
+          <div className="mb-4">
+            <label htmlFor="phoneNumber" className="block mb-2 font-medium">
+              Phone Number
+            </label>
+            <PhoneInput
+              country="us"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-blue-700 mt-4"
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Sign Up
           </button>
         </form>
-        <p className="text-gray-300 mt-4">
+        <p className="mt-4 text-center">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:text-blue-400">
-            Log In
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Log in
           </Link>
         </p>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };
