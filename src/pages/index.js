@@ -9,6 +9,9 @@ import SongADetails from './SongADetails';
 import Foryou from './Foryou';
 import Login from './Login';
 import Signup from './Signup';
+import Otp from './Otp';
+import ResetPassword from './ResetPassword';
+import Resetrequest from './ResetRequest';
 
 export {
   Discover,
@@ -22,4 +25,7 @@ export {
   Foryou,
   Login,
   Signup,
+  Otp,
+  ResetPassword,
+  Resetrequest,
 };

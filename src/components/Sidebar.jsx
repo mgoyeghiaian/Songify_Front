@@ -48,11 +48,11 @@ const NavLinks = ({ handleClick, isLoggedIn, handleLogout }) => {
             For You
           </NavLink>
           <button
-            className="flex flex-row justify-start items-end  text-sm font-medium text-gray-400 hover:text-cyan-400"
+            className="flex flex-row justify-start items-end  text-sm font-medium text-gray-400 my-8 hover:text-cyan-400"
             onClick={handleLogout}
             type="button"
           >
-            <HiOutlineLogout className="w-6 h-6 mr-2" />
+            <HiOutlineLogout className="w-6 h-6 mr-2 " />
             Logout
           </button>
         </>

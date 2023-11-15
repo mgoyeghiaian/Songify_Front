@@ -59,7 +59,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data, songId }) => {
           },
         })
         .then((response) => {
-          console.log('Song removed from liked songs:', response.data);
+          // console.log('Song removed from liked songs:', response.data);
           toast.dark('Song removed from liked songs:', response.data);
 
           setIsLiked(false);
@@ -79,7 +79,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data, songId }) => {
           },
         )
         .then((response) => {
-          console.log('Song added to liked songs:', response.data);
+          // console.log('Song added to liked songs:', response.data);
           toast.success('Song added to liked songs:', {
             theme: 'dark',
           }, response.data);

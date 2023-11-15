@@ -5,7 +5,7 @@ export const SpotifyApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shazam.p.rapidapi.com',
     prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key', '6cda817cf5msh39f1af9669028c2p1fdb0djsnde344d6cf49d');
+      headers.set('X-RapidAPI-Key', '2982106e69msh54c49b08c7cbc2ap185b2cjsnfb0fbbd3b6cc');
       return headers;
     },
   }),
@@ -66,10 +66,10 @@ export const SpotifyApi = createApi({
     }),
 
     getSongsByCountry: builder.query({
-      query: (countryCode) => ({
+      query: (country) => ({
         url: '/charts/track',
         params: {
-          listId: `ip-country-chart-${countryCode}`,
+          listId: `ip-country-chart-${country}`,
         },
       }),
     }),

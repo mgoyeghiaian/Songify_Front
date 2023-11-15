@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Signup = () => {
+const ResetPassword = () => {
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+
+  const resetPasswordId = queryParams.get('id');
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [newPassword, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [errorrE, seterrorrE] = useState('');
-  const [errorr, setErrorr] = useState('');
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -44,90 +36,55 @@ const Signup = () => {
     setShowConfirmPassword((prevShowConfirmPassword) => !prevShowConfirmPassword);
   };
 
-  const clearError = () => {
-    setErrorr('');
-    seterrorrE('');
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       setPasswordError('Passwords do not match');
       return;
     }
 
-    if (password.length < 8) {
+    if (newPassword.length < 8) {
       setPasswordError('Password must be at least 8 characters long');
       return;
     }
 
     try {
-      await axios.post('https://songify-v1.onrender.com/signup', {
-        username,
-        email,
-        password,
+      await axios.put(`https://songify-v1.onrender.com/reset-password/${resetPasswordId}`, {
+        newPassword,
       });
-      setUsername('');
-      setEmail('');
       setPassword('');
       setConfirmPassword('');
-      navigate('/otp');
-      Cookies.set('email', email);
-      toast.success('Signup successful Verify OTP Code!', {
+      navigate('/login');
+      sessionStorage.setItem('hasVisited', 'true');
+
+      toast.success('Password Changed successfully....', {
         theme: 'dark',
       });
     } catch (error) {
-      if (error.response.data.error === 'Email already exists') {
-        seterrorrE(error.response.data.error); setTimeout(clearError, 2000);
+      if (error.response && error.message.includes('400')) {
+        toast.error('Email already registered', {
+          theme: 'dark',
+        });
       } else {
-        setErrorr(error.response.data.error);
-        setTimeout(clearError, 2000);
+        toast.error('Failed to Reset', {
+          theme: 'dark',
+        });
       }
     }
   };
+
   return (
     <div className="flex justify-center items-center w-full">
       <div className="bg-gradient-to-tr from-gray-900 to-[#000000] shadow-lg rounded-lg p-8 text-white
        md:w-[450px] w-[100%] mt-10 sm:mt-40"
       >
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
 
-            <label htmlFor="username" className="block mb-2 font-medium">
-              Username
-            </label>
-
-            <input
-              type="text"
-              id="username"
-              className="w-full p-2 border border-gray-300 rounded bg-transparent focus:outline-none focus:border-blue-500 text-white"
-              placeholder="Enter your username"
-              value={username}
-              onChange={handleUsernameChange}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-2 font-medium">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full p-2 border border-gray-300 rounded bg-transparent focus:outline-none focus:border-blue-500 text-white"
-              placeholder="Enter your email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
-            {errorrE && <p className="text-red-500 text-sm italic mb-2">{errorrE}</p>}
-
-          </div>
           <div className="mb-4">
             <label htmlFor="password" className="block mb-2 font-medium">
-              Password
+              New Password
             </label>
             <div className="relative">
               <input
@@ -135,7 +92,7 @@ const Signup = () => {
                 id="password"
                 className="w-full p-2 border border-gray-300 rounded bg-transparent focus:outline-none focus:border-blue-500 text-white"
                 placeholder="Enter your password"
-                value={password}
+                value={newPassword}
                 onChange={handlePasswordChange}
                 required
               />
@@ -153,7 +110,7 @@ const Signup = () => {
           </div>
           <div className="mb-6">
             <label htmlFor="confirmPassword" className="block mb-2 font-medium">
-              Confirm Password
+              Confirm New Password
             </label>
             <div className="relative">
               <input
@@ -177,26 +134,18 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          {errorr && <p className="text-red-500 text-sm italic mb-2">{errorr}</p>}
-
           {passwordError && <p className="text-red-500 mt-2">{passwordError}</p>}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-blue-700 mt-4"
           >
-            Sign Up
+            Reset
           </button>
         </form>
-        <p className="text-gray-300 mt-4">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:text-blue-400">
-            Log In
-          </Link>
-        </p>
       </div>
       <ToastContainer />
     </div>
   );
 };
 
-export default Signup;
+export default ResetPassword;

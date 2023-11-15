@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { data } from 'autoprefixer';
+// import { data } from 'autoprefixer';
 import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
 import { useGetArtistDetailsQuery } from '../redux/services/Spotify';
 import { useGetYoutubeDetailsQuery } from '../redux/services/Youtube';
@@ -34,7 +34,7 @@ const ArtistDetails = () => {
   // console.log('youtubeDetails', YoutubeData);
   // console.log('songsssss', artistGenre);
   const adataaa = artistData?.resources;
-  const videoData = YoutubeData?.items[0];
+  const videoData = YoutubeData?.videos[0];
   const videoUrl = videoData?.url;
   const videoId = videoUrl?.split('v=')[1];
   // console.log(videoId);

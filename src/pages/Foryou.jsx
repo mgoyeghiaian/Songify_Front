@@ -30,7 +30,7 @@ const Foryou = () => {
         console.log(likedSongsData);
       })
       .catch((error) => {
-        console.error('Error fetching liked songs:', error);
+        console.error(error);
         setError('Error fetching liked songs');
         setIsLoading(false);
       });

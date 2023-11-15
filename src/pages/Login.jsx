@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 // import { FaGoogle, FaFacebook } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,6 +17,10 @@ const Login = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const clearError = () => {
+    setError('');
   };
 
   const handlePasswordChange = (event) => {
@@ -31,31 +37,22 @@ const Login = () => {
     try {
       const response = await axios.post('https://songify-v1.onrender.com/login', { email, password });
       const { token, username } = response.data;
-
       Cookies.set('token', token, { expires: 30 });
       Cookies.set('username', username);
       toast.success('Login successful', {
         theme: 'dark',
       });
 
-      window.location.href = '/';
+      navigate('/');
     } catch (error) {
-      if (error.response && error.message.includes('404')) {
-        toast.error('User not found', {
-          theme: 'dark',
-        });
-        setError('User not found');
-      } else if (error.response && error.message.includes('401')) {
-        toast.error('Invalid password', {
-          theme: 'dark',
-        });
-        setError('Invalid password');
-      } else {
-        toast.error('An error occurred', {
-          theme: 'dark',
-        });
-        setError('An error occurred');
+      setError(error);
+      if (error.response.data.error === 'Verify your OTP code before logging in.') {
+        toast.error(error.response.data.error);
+        navigate('/otp');
+        Cookies.set('email', email);
       }
+      setError(error.response.data.error);
+      setTimeout(clearError, 2000);
     }
   };
   return (
@@ -98,7 +95,14 @@ const Login = () => {
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </div>
             </div>
+            <div className="flex mt-1 justify-end items-end">
+              <Link to="/resetrequest" className="text-blue-500 hover:text-blue-400">
+                Forgot?
+              </Link>
+            </div>
           </div>
+          {errorr && <p className="text-red-500 text-sm italic mb-2">{errorr}</p>}
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-blue-700"
@@ -115,7 +119,6 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
